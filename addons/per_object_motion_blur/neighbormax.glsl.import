@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://djoeem2cnj5mb"
+path="res://.godot/imported/neighbormax.glsl-5e559c5dd20f928a8187a547ccae73f6.res"
+
+[deps]
+
+source_file="res://addons/per_object_motion_blur/neighbormax.glsl"
+dest_files=["res://.godot/imported/neighbormax.glsl-5e559c5dd20f928a8187a547ccae73f6.res"]
+
+[params]
+
