@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://uig6lojy3ra6"
+path="res://.godot/imported/tilemax_2step.glsl-79e078c54584671ea97cc5913c32fc43.res"
+
+[deps]
+
+source_file="res://addons/per_object_motion_blur/tilemax_2step.glsl"
+dest_files=["res://.godot/imported/tilemax_2step.glsl-79e078c54584671ea97cc5913c32fc43.res"]
+
+[params]
+

@@ -17,36 +17,20 @@ layout(push_constant, std430) uniform Params {
 	float dilatate_radius_k;
 } params;
 
-
-float dist_sq(vec2 v ) {
-    return dot( v, v );
-}
-
-
 // The code we want to execute in each invocation
 void main() {
 	ivec2 render_size = ivec2(params.render_size.xy);
 	int k_radius = int(params.dilatate_radius_k);
-	ivec2 image_uv = ivec2(gl_GlobalInvocationID.xy);
-
-	ivec2 texture_size = render_size/k_radius;
+	ivec2 image_coords = ivec2(gl_GlobalInvocationID.xy);
+	ivec2 texture_size = render_size/k_radius + ivec2(1,1);
 	
-	// Just in case the effect_size size is not divisable by 8
-	if ((image_uv.x >= texture_size.x) || (image_uv.y >= texture_size.y)) {
-		return;
-	}
 	vec2 max_vel = vec2(0,0);
 	float max_length_sq = 0;
 	for(int x = -1; x <=1; ++x) {
-
 		for(int y=-1; y<=1; ++y) {
-			ivec2 texel = image_uv + ivec2(x,y);
-			if (texel.x < 0 || texel.y < 0 || texel.x >= texture_size.x || texel.y >= texture_size.y) {
-				continue;
-			}
-
+			ivec2 texel = clamp(image_coords + ivec2(x,y), ivec2(0,0), texture_size);
 			vec2 velocity = imageLoad(tilemax_read, texel).xy;
-			float len_sq = dist_sq(velocity);
+			float len_sq = dot(velocity, velocity);
 			if(len_sq > max_length_sq){
 				max_vel = velocity;
 				max_length_sq = len_sq;
@@ -54,8 +38,5 @@ void main() {
 		}
 	}
 
-
-	imageStore(neighbormax_store, image_uv, vec4(max_vel, 0,0));
-	
-
+	imageStore(neighbormax_store, image_coords, vec4(max_vel, 0,0));
 }

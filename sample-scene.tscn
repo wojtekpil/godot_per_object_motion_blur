@@ -14,10 +14,6 @@ script/source = "extends Node3D
 
 @onready var _camera_3d_2 = $Node3D2/Camera3D2
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -57,7 +53,7 @@ needs_motion_vectors = true
 needs_normal_roughness = false
 script = ExtResource("1_svcn4")
 shutter_speed_hz = 60.0
-blur_radius = 0.1
+max_blur_radius = 0.06
 
 [sub_resource type="Compositor" id="Compositor_bwhae"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_xb2bx")])
@@ -473,7 +469,7 @@ spot_range = 103.144
 spot_angle = 32.2505
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.00129733, 0.000338305, 0.999999, -0.00154044, 0.999999, -0.000336306, -0.999998, -0.00154, 0.00129785, 11.6529, 6, 0.011147)
+transform = Transform3D(0.00137838, -0.0534969, 0.998567, -0.00146836, 0.998567, 0.053499, -0.999998, -0.00154, 0.00129785, 21.2416, 7.92845, 0.011147)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.348507, -0.632089, 0.692103, 0, 0.738396, 0.674367, -0.937306, -0.235021, 0.257336, 0, 24.8256, 0)

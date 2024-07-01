@@ -17,10 +17,11 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1200
-window/size/viewport_height=640
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [rendering]
 
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3
+anti_aliasing/quality/use_taa=true
 anti_aliasing/quality/use_debanding=true
