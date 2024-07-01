@@ -209,7 +209,7 @@ func _render_callback(p_effect_callback_type, p_render_data):
 			# Loop through views just in case we're doing stereo rendering. No extra cost if this is mono.
 			var view_count = render_scene_buffers.get_view_count()
 			for view in range(view_count):
-				# Get the RID for our color image, we will be reading from and writing to it.
+				# Get the RID for our images
 				var color_image = render_scene_buffers.get_color_layer(view)
 				var velocity_image = render_scene_buffers.get_velocity_layer(view)
 				var depth_image = render_scene_buffers.get_depth_layer(view)
@@ -236,6 +236,7 @@ func _render_callback(p_effect_callback_type, p_render_data):
 				rd.compute_list_end()
 				rd.draw_command_end_label()
 
+				# Step 1b Create tile max texture
 				uniform = get_sampler_uniform(tilemax1pass_image)
 				tilemax1pass_uniform_set = UniformSetCacheRD.get_cache(tilemax2step2_shader, 0, [ uniform ])
 				uniform = get_image_uniform(tilemax2pass_image)
@@ -251,7 +252,7 @@ func _render_callback(p_effect_callback_type, p_render_data):
 				rd.draw_command_end_label()
 
 				##############################################################
-				# Step 2 Create tile max texture
+				# Step 2 Create neighbor max texture
 				uniform = get_image_uniform(tilemax2pass_image)
 				var tilemax_uniform_set = UniformSetCacheRD.get_cache(neighbormax_shader, 1, [ uniform ])
 				uniform = get_image_uniform(neighbormax_image)
@@ -283,7 +284,7 @@ func _render_callback(p_effect_callback_type, p_render_data):
 				rd.draw_command_end_label()
 
 				##############################################################
-				# Step 4: Do a per object motion blur
+				# Step 4: Reconstruction filter
 				uniform = get_image_uniform(color_image)
 				color_uniform_set = UniformSetCacheRD.get_cache(reconstruct_shader, 0, [ uniform ])
 				uniform = get_image_uniform(color_copy_image)
